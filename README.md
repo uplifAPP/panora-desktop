@@ -51,3 +51,8 @@ Always verify binary authenticity using SHA-256 checksums before running:
 **macOS:**
 ```bash
 shasum -a 256 PanoRA-0.1.0-universal.dmg
+
+Windows (PowerShell):
+
+Get-FileHash -Algorithm SHA256 "PanoRA Setup 0.1.0.exe"
+
