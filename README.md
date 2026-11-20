@@ -1,132 +1,89 @@
 # PanoRA
 
-<div align="center">
+Local-first desktop productivity workstation for macOS (Apple Silicon and Intel) and Windows 10/11.
 
-**Local-First Desktop Productivity Workstation**  
-*Instant Screenshots • 60 FPS Recording • On-Device OCR • Local Clipboard • Peer-to-Peer Transfer*
+PanoRA brings clipboard history, file referencing, screen capture, video recording, on-device OCR, PDF utilities, an encrypted local vault, and LAN peer-to-peer transfer into a single desktop workspace with zero cloud dependency.
 
-[![macOS](https://img.shields.io/badge/macOS-13%2B%20(Ventura%20%7C%20Sonoma%20%7C%20Sequoia)-000000?logo=apple&logoColor=white)](https://uplif.app/panora)
-[![Windows](https://img.shields.io/badge/Windows-10%20(1903%2B)%20%2F%2011-0078D6?logo=windows&logoColor=white)](https://uplif.app/panora)
-[![Privacy: Zero Telemetry](https://img.shields.io/badge/Telemetry-Zero%20Cloud-success)](https://uplif.app/privacy)
-[![Storage: Local JSON](https://img.shields.io/badge/Storage-100%25%20Local%20JSON-blue)](https://uplif.app)
-[![Architecture: Apple Silicon](https://img.shields.io/badge/Architecture-Universal%20%2F%20M1--M4-purple)](https://uplif.app/panora)
-
-[Official Website](https://uplif.app/panora) • [Download Releases](https://github.com/uplif/panora/releases) • [Documentation](https://uplif.app/docs) • [Privacy Policy](https://uplif.app/privacy) • [Terms of Use](https://uplif.app/terms)
-
-</div>
+- Website: [uplif.app/panora](https://uplif.app/panora)
+- Pricing: [uplif.app/pricing](https://uplif.app/pricing)
+- Privacy Policy: [uplif.app/privacy](https://uplif.app/privacy)
+- Support: [support@uplif.app](mailto:support@uplif.app)
 
 ---
 
-## 🔒 The Local-First Philosophy
+## Core Architecture
 
-Most modern screenshot and clipboard utilities silently upload your tokens, sensitive credentials, customer data, and screen captures to cloud servers. **PanoRA is engineered with strict, uncompromising on-device data sovereignty:**
-
-1. **Zero Cloud Telemetry:** No third-party trackers, no behavioral analytics SDKs (no Google Analytics, no Mixpanel), and no automated telemetry uploads containing personal files.
-2. **Transparent Local Storage:** All your cards, clips, annotations, and metadata are saved in a clean, human-readable local JSON file on your machine (`pano.json`). You can inspect, version-control, or back it up anytime.
-3. **100% On-Device AI / OCR:** Text recognition runs entirely on your local GPU/CPU using native operating system frameworks (Apple Vision on macOS and native offline OCR on Windows). No optical or textual data is ever transmitted across the internet.
-4. **Peer-to-Peer LAN Drop:** Sharing files between devices happens directly over your local Wi-Fi / LAN via P2P. No middleman relay servers inspect or retain your files.
-5. **Full Offline Operation:** Unplug your Ethernet cable or disable Wi-Fi — PanoRA functions seamlessly with 100% capability.
+- **Zero-Duplication File Referencing:** Files and folders dropped into PanoRA are referenced by their original disk path rather than duplicated. External USB/SSD drives are detected and preserved when disconnected so cards remain intact when reconnected.
+- **Local-First Persistence:** Cards, workspaces, and settings are stored locally (`pano.json`) using atomic writes with automatic `.bak` recovery.
+- **No Telemetry:** No third-party analytics SDKs, no cloud accounts, and no outbound uploads of user content. Optional network calls are limited to license activation/verification and user-initiated update checks against `https://license.uplif.app`.
+- **macOS and Windows Parity:** Built with native platform integrations on both operating systems (Apple Vision, AppKit, CoreGraphics, and SFSpeechRecognizer on macOS; WinRT OCR, Win32, and PowerShell helpers on Windows).
 
 ---
 
-## ⚡ Key Capabilities
+## Features
 
-### 🎥 Hardware-Accelerated 60 FPS Video Studio
-* **Native Capture Engine:** Powered by Apple ScreenCaptureKit on macOS and Windows Graphics Capture for stutter-free 60 FPS recording with minimal CPU overhead.
-* **Timeline Redaction Blur:** Apply frame-accurate timeline mosaic blur over private API tokens, customer credentials, or passwords before exporting.
-* **Instant Trimming & Export:** Multi-format export to MP4, WebM, and lightweight animated GIF.
+### Clipboard, Cards, and Organization
+- **Automatic Clipboard Capture:** Collects text, links (with metadata preview), images, code snippets, files, folders, and color swatches into cards.
+- **Sequential Paste Queue:** Queue multiple cards and paste them one by one into any target application (`Cmd+Option+V` / `Ctrl+Alt+V`) with a floating HUD controller.
+- **Quick Look Overlay:** Instant spacebar preview for text, images, media, PDFs, files, and folders.
+- **Workspaces and Tagging:** Custom workspaces, tag normalization with autocomplete, card color coding, sensitive content masking, and a Trash/Restore lifecycle.
+- **11-Language Search Engine:** Operator-aware lexer/parser search across content, tags, types, and dates, plus a Command Palette (`Cmd+Shift+K` / `Ctrl+Shift+K`).
 
-### 📸 Non-Destructive Annotation Studio
-* **Sequential Step Badges:** Drop auto-incrementing numbered badges (1, 2, 3…) with a single click.
-* **Callout Loupes & Arrows:** Pixel-aligned bezier guidance arrows and magnification callouts.
-* **Mosaic Redaction Brush:** Permanently redact confidential regions directly on the canvas without altering your original screen resolution.
+### Screen Capture, Image Editing, and Video Studio
+- **Screenshots and Region Snip:** Native region capture with optional mockup frames and background presets.
+- **Non-Destructive Annotator:** Canvas drawing tools, numbered step badges, arrows, shapes, magnification callouts, and permanent mosaic redaction while preserving the original raw image.
+- **Scrolling Capture:** Capture full-length web pages, documents, and code views with automatic scroll stitching.
+- **60 FPS Screen Recorder:** Hardware-accelerated screen and region recording (up to 4K/60 FPS on Pro/Team) with a standalone floating Recording HUD and resizable Webcam Bubble.
+- **Video Studio:** Timeline trimming, crop, rotation, mosaic censor layers, keystroke shortcut overlay, and DSP audio cleanup (noise suppression and pitch control).
+- **Watermark Studio:** Non-destructive photo and video watermarking.
+- **Media Conversion:** Lossless/configurable WebP and AVIF image compression, plus M4A and MP3 audio extraction from video cards.
+- **Pixel Loupe and Color Picker:** Screen magnifier copying colors in HEX, RGB, RGBA, HSL, Tailwind CSS, SwiftUI, Flutter, Android XML, and CSS variables.
 
-### 📜 Sub-Pixel Scrolling Panorama
-* Stitch ultra-long web pages, code listings, and terminal logs up to 10,000+ pixels with live real-time visual overlap computation and minimap preview.
+### OCR, Voice, Text, and PDF Tools
+- **On-Device OCR and QR/Barcode Reader:** Hardware-accelerated text recognition and QR/barcode scanning using Apple Vision (macOS) and WinRT OCR + pure JS decoding (Windows).
+- **Voice Notes and Transcription:** Record voice cards with on-device speech-to-text and natural-language parsing.
+- **Developer Text Tools and Export:** JSON formatting, line-break cleanup, Markdown stripping, and export to `.md`, `.txt`, `.csv`, and `.html`.
+- **Smart Print Studio and Direct PDF Export:** Print-ready card layouts and single-click PDF export.
+- **Zero-Dependency PDF Utilities:** Automatic PDF page count badges, plus pure-JS PDF page extraction (slicing) and multi-PDF merging.
 
-### 📋 Smart Clipboard & Task Station
-* Collect text clips, code snippets, image assets, color swatches, and voice notes into organizeable cards.
-* Smart parsing for tags (`#work`, `#todo`), deadlines (`@tomorrow 15:00`), and markdown formatting.
-* Direct paste: hit `Enter` on any card to inject its contents directly into your active editor or messaging app.
+### Encrypted Vault and Backups
+- **AES-256-GCM Encrypted Vault:** Local vault encryption using `scrypt` key derivation, random IVs, and authentication tags. Decryption keys are cleared from memory immediately on lock.
+- **Biometric and PIN Unlock:** Touch ID support on macOS and PIN unlock on macOS and Windows, with configurable idle/sleep/blur auto-lock.
+- **Emergency Recovery Key:** 16-character recovery key (`PANO-XXXX-...`) for PIN resets without cloud recovery servers.
+- **Encrypted Local Backups:** Password-protected AES-256 `.pano-backup` archive export, inspection, and merge/replace restore.
 
-### 🔍 Precision Color Loupe
-* Real-time pixel magnifier with single-click clipboard copying in HEX, RGB, HSL, and Tailwind CSS format.
+### Local Network Sync and Transfer
+- **Pano Mesh (LAN P2P):** Direct encrypted Mac-to-Windows and peer-to-peer card and file transfer over local Wi-Fi, with PIN pairing, replay protection, and a 24-hour offline delivery queue.
+- **AirBridge Mobile Portal:** Ephemeral, token-authenticated local web portal paired via QR code for two-way text and file transfer with phones and tablets (no mobile app required).
+- **Pano Drop and AirDrop:** Temporary Wi-Fi QR sharing on macOS and Windows, plus native AirDrop and macOS Share Menu integration.
 
-### 🎙️ On-Device Voice Transcriber
-* High-speed speech-to-text powered by native system speech engines (Apple SFSpeechRecognizer & Windows Speech) with zero cloud dependencies.
-
----
-
-## 📥 Official Downloads & Binary Verification
-
-Always verify binary authenticity using SHA-256 checksums before running:
-
-| Platform | Target Architecture | Package | Minimum OS Requirement | SHA-256 Checksum |
-| :--- | :--- | :--- | :--- | :--- |
-| **macOS** | Universal (Apple Silicon & Intel) | `PanoRA-0.1.0-universal.dmg` | macOS 13+ (Ventura, Sonoma, Sequoia) | `0f756d1c3c5ba2e112600a7f4303a63facd183994f45ad00219cf63803db4249` |
-| **Windows** | x86_64 / 64-bit | `PanoRA Setup 0.1.0.exe` | Windows 10 (Build 1903+) / Windows 11 | `b1a08259157c70af858c016a9cc273cbf3b67a3d927cd54d373ce4342dd4608f` |
-
-### How to Verify Checksums
-
-**macOS (Terminal):**
-```bash
-shasum -a 256 PanoRA-0.1.0-universal.dmg
-```
-
-**Windows (PowerShell):**
-```powershell
-Get-FileHash -Algorithm SHA256 "PanoRA Setup 0.1.0.exe"
-```
+### Tasks, Focus, and Desktop Utilities
+- **Tasks and Deadlines:** Due dates, completion tracking, Daily Digest summaries, and a floating Reminder HUD.
+- **Pomodoro Focus Timer:** Built-in focus sessions with granular audio/haptic notification channels.
+- **Desktop Helpers:** Ghost Drop Shelf (screen-edge drop zone), Floating Thumbnail Bar after capture, on-screen Sticky Notes, and Menu Bar / System Tray quick access.
 
 ---
 
-## ⌨️ Essential Keyboard Shortcuts
+## System Requirements
 
-| Action | macOS | Windows |
+| Platform | Supported Versions | Architecture |
 | :--- | :--- | :--- |
-| **Toggle PanoRA HUD** | `⌘ ⇧ Space` | `Ctrl + Shift + Space` |
-| **Quick Search & Commands** | `⌘ ⇧ K` / `⌘ F` | `Ctrl + Shift + K` / `Ctrl + F` |
-| **Screen OCR (Text Grab)** | `⌘ ⇧ O` | `Ctrl + Shift + O` |
-| **Color Eyedropper Loupe** | `⌘ ⇧ C` | `Ctrl + Shift + C` |
-| **Quick Voice Recording** | `⌘ ⇧ R` | `Ctrl + Shift + R` |
-| **Paste from Clipboard to Card**| `⌘ ⇧ V` | `Ctrl + Shift + V` |
-| **Quick Task Creation** | `⌘ ⇧ N` | `Ctrl + Shift + N` |
-| **Switch Workspaces** | `⌘ 1`, `⌘ 2`, `⌘ 3`... | `Ctrl + 1`, `Ctrl + 2`, `Ctrl + 3`... |
-| **Settings & Preferences** | `⌘ ,` | `Ctrl + ,` |
+| **macOS** | macOS 13 (Ventura), 14 (Sonoma), 15 (Sequoia) and later | Universal Binary (Apple Silicon + Intel) |
+| **Windows** | Windows 10 (1903+) and Windows 11 | x64 (NSIS installer, portable, zip) |
 
 ---
 
-## 🛡️ Independent Privacy & Network Audit
+## Local Data Paths
 
-We actively encourage security audits:
-1. Launch **Wireshark**, **Little Snitch**, or **LuLu** on your workstation.
-2. Filter network traffic by process name `PanoRA`.
-3. Capture screens, run OCR text extractions, record video, and manage your clipboard.
-4. You will observe **0 outbound packets** transmitting media, OCR text, or clipboard data.
-5. Inbound traffic is strictly limited to optional user-initiated update checks against `https://license.uplif.app/updates`.
+All workspace data stays in standard OS application directories:
+
+- **macOS:** `~/Library/Application Support/PanoRA/`
+- **Windows:** `%APPDATA%\PanoRA\`
 
 ---
 
-## 📁 Local Data Location
+## Issues, Feedback, and Security
 
-All your workspace data is stored in standard OS application folders:
-
-* **macOS:** `~/Library/Application Support/PanoRA/pano.json`
-* **Windows:** `%APPDATA%\PanoRA\pano.json`
-
-You maintain complete ownership of your database. You can copy, back up, or delete it at any time with standard OS file managers.
-
----
-
-## 💬 Community, Feedback & Support
-
-* **Bug Reports:** Found an issue? [Open a Bug Report](https://github.com/uplif/panora/issues/new) with reproduction steps.
-* **Feature Requests:** Have a suggestion? Share it on [GitHub Issues](https://github.com/uplif/panora/issues).
-* **Website:** [uplif.app/panora](https://uplif.app/panora)
-* **Direct Support:** `support@uplif.app`
-
----
-
-<div align="center">
-  <sub>Copyright © 2026 Uplif Studio. Built with privacy, speed, and elegance for creators and engineers.</sub>
-</div>
+- Bug reports and feature requests: [github.com/uplifAPP/panora-desktop/issues](https://github.com/uplifAPP/panora-desktop/issues)
+- Security vulnerabilities: see [SECURITY.md](https://github.com/uplifAPP/panora-desktop/blob/main/SECURITY.md) or email `security@uplif.app`
+- General support: `support@uplif.app`
