@@ -1,12 +1,16 @@
-# Security & Privacy Policy
+# Security Policy
 
-PanoRA takes security and user privacy seriously.
+## Security Architecture
 
-### Zero-Telemetry Commitment
-PanoRA never collects, sells, or uploads your screen captures, OCR data, or clipboard history. All data is stored strictly on your local device.
+- **Local-First Data:** Cards, media references, and settings are stored strictly on the user's device. PanoRA does not collect behavioral analytics or upload user content to cloud servers.
+- **Vault Encryption:** When enabled, the local vault encrypts data with AES-256-GCM using keys derived via `scrypt`. Encryption keys are dropped from memory upon lock.
+- **LAN Transfers:** Pano Mesh uses authenticated encryption between paired devices on the local network; AirBridge uses ephemeral per-session 128-bit tokens and hides host-shared items while the vault is locked.
+- **Offline License Verification:** License certificates are verified locally against an embedded Ed25519 public key.
 
-### Reporting a Vulnerability
-If you discover a security issue or vulnerability, please do NOT open a public GitHub issue. Instead, report it privately to:
-`security@uplif.app`
+## Reporting a Vulnerability
 
-We will review and respond within 48 hours.
+Please do not open public GitHub issues for security vulnerabilities. Report them privately to:
+
+- Email: `security@uplif.app`
+
+Include steps to reproduce, affected OS/version, and impact details. We acknowledge reports within 48 hours and coordinate disclosure once a fix is verified.
